@@ -23,8 +23,7 @@ class Connection:
                         recvMsg[qMsg] = True
                     Connection.process(s, fs, data, addr, sPath, queue, v, q)
             return
-        except Exception as e:
-            #Logger.log(e)
+        except Exception:
             return
 
     def process(s, f, msg, addr, pth, queue, v, q):
