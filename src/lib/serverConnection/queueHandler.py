@@ -14,7 +14,7 @@ class QueueHandler:
             now = datetime.datetime.now()
             sleepTime = (item["ttl"] - now).total_seconds()
             if sleepTime > 0:
-                time.sleep(int(sleepTime)+1)
+                time.sleep(sleepTime)
 
             expectedMsg = item['expected']
             messageRecv = recvMsg.get(expectedMsg, False)
