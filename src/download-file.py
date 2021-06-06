@@ -6,10 +6,11 @@ from threading import Thread
 from lib.exceptions.paramException import ParamException
 import socket
 import queue
+import datetime
 
 
 def main():
-
+    startTime = datetime.datetime.now()
     host, port, fName, fDest, v, q, h, lr = '', '', '', '', '', '', '', ''
 
     try:
@@ -37,6 +38,9 @@ def main():
     s.close()
     queueThread.join()
     Logger.log("Client closed")
+    endTime = datetime.datetime.now()
+    executionTime = (endTime - startTime).total_seconds() * 1000.0
+    Logger.log('Execution time: ' + str(int(executionTime)) + 'ms')
     return
 
 

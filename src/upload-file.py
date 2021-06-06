@@ -1,5 +1,6 @@
 import socket
 import queue
+import datetime
 from threading import Thread
 from lib.params.uploadClientParamsValidation import UploadClientParams
 from lib.logger.logger import Logger
@@ -9,6 +10,7 @@ from lib.exceptions.paramException import ParamException
 
 
 def main():
+    startTime = datetime.datetime.now()
     host, port, fName, fSource, v, q, h, lr = '', '', '', '', '', '', '', ''
     try:
         host, port, fName, fSource, v, q, h, lr = UploadClientParams.validate()
@@ -45,6 +47,9 @@ def main():
     sckt.close()
     queueThread.join()
     Logger.logIfNotQuiet(q, "Client closed")
+    endTime = datetime.datetime.now()
+    executionTime = (endTime - startTime).total_seconds() * 1000.0
+    Logger.log('Execution time: ' + str(int(executionTime)) + 'ms')
     return
 
 
