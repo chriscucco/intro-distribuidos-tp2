@@ -18,9 +18,9 @@ Para correr el server se debe ejecutar el siguiente comando en la carpeta root/s
 ` python3 start-server.py [-h] [-v | -q] [-H ADDR] [-p PORT] [-s DIRPATH] [-lr LOSSRATE] `
 
 Ejemplo:
-` python3 start-server.py -H 127.0.0.1 -p 8080 -v -s lib/ -lr 0.5`
+` python3 start-server.py -H 127.0.0.1 -p 8090 -v -s lib/ -lr 0.5`
 
-Con -p se indica el puerto donde correrá el server y con -H la dirección IP del host. En caso de no ingresar estos parámetros, por defecto la dirección será 127.0.0.1 (localhost) y el puerto 8080.
+Con -p se indica el puerto donde correrá el server y con -H la dirección IP del host. En caso de no ingresar estos parámetros, por defecto la dirección será 127.0.0.1 (localhost) y el puerto 8090.
 
 Con -v se indica si se quiere información extra en los logs, y con -q si se quiere menos. En caso de poner los dos parámetros se tomará el -v.
 
@@ -37,10 +37,10 @@ Para correr el cliente upload se debe correr el siguiente comando en la carpeta 
 ` python3 upload-file.py [-h] [-v | -q] [-H ADDR] [-p PORT] [-s FILEPATH] [-n FILENAME] [-lr LOSSRATE]`
 
 Ejemplo:
-` python3 upload-file.py -H 127.0.0.1 -p 8080 -n Test.txt -s lib/ -q -lr 0.9`
+` python3 upload-file.py -H 127.0.0.1 -p 8090 -n Test.txt -s lib/ -q -lr 0.9`
 
 Con -p se indica el puerto y con -H la dirección IP del host a donde quiere enviar mensajes el cliente. En caso de no ingresarse estos parámetros el cliente
-intentará conectarse a la dirección 127.0.0.1 (Localhost) y al puerto 8080.
+intentará conectarse a la dirección 127.0.0.1 (Localhost) y al puerto 8090.
 
 Con -n se indica el nombre del archivo (debe escribirse junto con su extensión y no debe comenzar con '-') que se desea enviar.
 
@@ -56,11 +56,11 @@ Para correr el cliente download se debe correr el siguiente comando en la carpet
 ` python3 download-file.py [-h] [-v | -q] [-H ADDR] [-p PORT] [-d FILEPATH] [-n FILENAME] [-lr LOSSRATE]`
 
 Ejemplo:
-` python3 download-file.py -H 127.0.0.1 -p 8080 -v -n Test.txt -d lib/ -lr 0.2 `
+` python3 download-file.py -H 127.0.0.1 -p 8090 -v -n Test.txt -d lib/ -lr 0.2 `
 
 Al igual que con el cliente upload los parámetros funcionan de la misma manera, salvo que con -n se está indicando el nombre del archivo que se quiere recibir,
 y con -d el path de destino donde se almacenará.
-Nuevamente, si no se ingresa la dirección IP o el puerto al cual conectarse, por defecto se tomarán los valores 127.0.0.1 (Localhost) y 8080 respectivamente. Y
+Nuevamente, si no se ingresa la dirección IP o el puerto al cual conectarse, por defecto se tomarán los valores 127.0.0.1 (Localhost) y 8090 respectivamente. Y
 de no indicarse el path para almacenar el archivo, por defecto será root/src.
 
 Una vez que el archivo es descargado, el cliente finaliza.
