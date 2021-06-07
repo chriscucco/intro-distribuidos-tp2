@@ -1,7 +1,10 @@
+import time
+
+
 class Logger:
     def logIfVerbose(verbose, message):
         if verbose:
-            print(message)
+            print("Timestamp: " + str(time.time()) + "/ " + message)
 
     def logIfNotQuiet(quiet, message):
         if not quiet:

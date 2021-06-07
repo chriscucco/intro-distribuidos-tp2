@@ -15,9 +15,10 @@ class ClientUpload:
         bytesSent = 0
         addr = (host, port)
         Logger.logIfNotQuiet(quiet, "Sending file to server...")
-        r = random.random()
 
         while True:
+            r = random.random()
+
             if r >= lr:
                 file.seek(bytesSent, os.SEEK_SET)
                 data = file.read(Constants.getMaxReadSize())
