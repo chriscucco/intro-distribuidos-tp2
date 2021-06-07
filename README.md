@@ -20,12 +20,14 @@ Para correr el server se debe ejecutar el siguiente comando en la carpeta root/s
 Ejemplo:
 ` python3 start-server.py -H 127.0.0.1 -p 8080 -v -s lib/ -lr 0.5`
 
-Con -p se indica el puerto donde correrá el server y con -H la dirección IP del host. En caso de no ingresar estos parámetros, por defecto la dirección será 127.0.0.1 (localhost)
-y el puerto 8080. 
+Con -p se indica el puerto donde correrá el server y con -H la dirección IP del host. En caso de no ingresar estos parámetros, por defecto la dirección será 127.0.0.1 (localhost) y el puerto 8080.
+
 Con -v se indica si se quiere información extra en los logs, y con -q si se quiere menos. En caso de poner los dos parámetros se tomará el -v.
-Con -s se indica el path donde el servidor almacenará los archivos que reciba y luego mande a los respectivos clientes (no debe comenzar con el caracter '-'). En caso de no indicarse el path por
-default será root/src. El path se puede indicar tanto con la barra final como no. Por ejemplo, tanto lib como lib/ son válidos.
+
+Con -s se indica el path donde el servidor almacenará los archivos que reciba y luego mande a los respectivos clientes (no debe comenzar con el caracter '-'). En caso de no indicarse el path por default será root/src. El path se puede indicar tanto con la barra final como no. Por ejemplo, tanto lib como lib/ son válidos.
+
 Con -lr se indica el nivel de pérdida de paquetes. Esta puede variar de 0 a 0.99.
+
 En caso de querer ver la descripción de cada parámetro correr lo siguiente: `python3 start-server.py -h`
 
 Para cerrar el server basta con escribir `exit` en la consola donde el server está corriendo. Esto cerrará todos los sockets y joineará los threads que correspondan, sin perder memoria.
@@ -39,8 +41,11 @@ Ejemplo:
 
 Con -p se indica el puerto y con -H la dirección IP del host a donde quiere enviar mensajes el cliente. En caso de no ingresarse estos parámetros el cliente
 intentará conectarse a la dirección 127.0.0.1 (Localhost) y al puerto 8080.
+
 Con -n se indica el nombre del archivo (debe escribirse junto con su extensión y no debe comenzar con '-') que se desea enviar.
+
 Con -s se indica el path donde el cliente accederá para encontrar el archivo y enviarlo (no debe comenzar con el caracter '-'). En caso de no indicarse el path por default será root/src. El path se puede indicar tanto con la barra final como no. Por ejemplo, tanto lib como lib/ son válidos.
+
 El resto de parámetros funciona igual que para el servidor.
 
 Una vez que el archivo es almacenado en el servidor y se recibe la respuesta de que llegó el fin de archivo al servidor el cliente finaliza.
