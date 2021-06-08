@@ -54,9 +54,9 @@ def main():
 
     Logger.logIfNotQuiet(q, "Closing server...")
     msgQueue.put('exit')
+    skt.close()
     t.join()
     queueThread.join()
-    skt.close()
 
     for key, f in files.items():
         try:

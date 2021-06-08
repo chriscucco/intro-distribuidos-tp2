@@ -5,6 +5,7 @@ from lib.helpers.fileHelper import FileHelper
 from lib.serverConnection.queueHandler import QueueHandler
 import random
 import os
+import socket
 
 
 class Connection:
@@ -21,10 +22,12 @@ class Connection:
                         qMsg = msg + '-' + str(addr[0]) + '-' + str(addr[1])
                         recvMsg[qMsg] = True
                     Connection.process(s, fs, data, addr, sPath, queue, v, q)
-            except Exception:
+            except socket.timeout:
                 close = cont.get('exit', False)
                 if close:
                     break
+            except Exception:
+                break
         return
 
     def process(s, f, msg, addr, pth, queue, v, q):
