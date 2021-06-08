@@ -36,7 +36,7 @@ class QueueHandler:
         d['ttl'] = ttl
         d['msg'] = currentMsg
         d['addr'] = addr
-        d['retrySize'] = 20
+        d['retrySize'] = 10
         return d
 
     def makeMessageExpected(currentMsg, addr):
