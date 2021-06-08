@@ -68,7 +68,6 @@ class QueueHandler:
         srvSock.sendto(message, addr)
         item['ttl'] = datetime.datetime.now() + datetime.timedelta(
             seconds=Constants.ttl())
-        mode = message[0:1].decode()
         if item['retrySize'] > 0:
             msgQueue.put(item)
             item['retrySize'] -= 1

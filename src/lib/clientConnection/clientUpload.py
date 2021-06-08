@@ -15,7 +15,7 @@ class ClientUpload:
         bytesSent = 0
         addr = (host, port)
         Logger.logIfNotQuiet(quiet, "Sending file to server...")
-
+        endRecv = False
         while True:
             r = random.random()
 
@@ -57,6 +57,13 @@ class ClientUpload:
                 if msgRcvd[0] == Constants.ackProtocol():
                     splittedMsg = msgRcvd.split(';')
                     bytesSent = int(splittedMsg[1])
+        while not endRecv:
+            msgRcvd = CommonConnection.receiveMessageFromServer(s, addr)
+            r = random.random()
+            if r >= lr:
+                recvMsg[msgRcvd+'-'+str(host)+'-'+str(port)] = True
+                if msgRcvd[0] == 'A' and msgRcvd[1] == 'E':
+                    endRecv = True
 
         return True
 
