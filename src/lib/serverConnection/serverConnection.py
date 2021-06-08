@@ -14,8 +14,6 @@ class Connection:
                 r = random.random()
                 data, addr = s.recvfrom(Constants.bytesChunk())
                 if r >= lr:
-                    Logger.logIfVerbose(v, "Recieved message from: "
-                                        + str(addr))
                     mode = data[0:1]
                     if mode.decode() == 'A':
                         msg = data.decode()
@@ -49,7 +47,6 @@ class Connection:
             file = open(sPath+message, "wb")
             Logger.logIfVerbose(verbose, "File " + message + " opened")
             files[message] = file
-            Logger.logIfVerbose(verbose, "Sending ACK to client: " + str(addr))
             CommonConnection.sendACK(s, addr[0], addr[1], 'U', message, 0)
         except OSError:
             Logger.log("Error opening file " + message)
@@ -69,12 +66,14 @@ class Connection:
         try:
             f = files[fname]
             Connection.upload(s, f, fname, bytesRecv, msg, addr, v, q)
-        except Exception as e:
+        except OSError as e:
             print(e)
             Logger.logIfNotQuiet(q, "Error processing transfer")
             msg = CommonConnection.sendError(s, fname, addr[0], addr[1])
             msgQueue.put(QueueHandler.makeSimpleExpected(msg, addr))
-        return
+            return
+        except Exception:
+            return
 
     def startDownload(s, files, data, addr, sPath, msgQueue, v, q):
         filename = data.decode()
@@ -84,7 +83,6 @@ class Connection:
             data = file.read(Constants.getMaxReadSize())
             h = addr[0]
             p = addr[1]
-            Logger.logIfVerbose(v, "Sending message to client: " + str(addr))
             msg = CommonConnection.sendMessage(s, h, p, filename, data, 0)
             msgQueue.put(QueueHandler.makeMessageExpected(msg, addr))
         except Exception:
@@ -98,7 +96,6 @@ class Connection:
         filename = data.decode()
         try:
             files[filename].close()
-            Logger.logIfVerbose(v, "Sending ACK to client: " + str(addr))
             CommonConnection.sendACK(s, addr[0], addr[1], 'F', filename, 0)
         except Exception:
             Logger.log("Error processing error")
@@ -109,7 +106,6 @@ class Connection:
         filename = data.decode()
         try:
             files[filename].close()
-            Logger.logIfVerbose(v, "Sending ACK to client: " + str(addr))
             CommonConnection.sendACK(s, addr[0], addr[1], 'E', filename, 0)
         except Exception:
             Logger.log("Error processing end file")
@@ -140,7 +136,6 @@ class Connection:
         else:
             h = addr[0]
             port = addr[1]
-            Logger.logIfVerbose(v, "Sending message to client: " + str(addr))
             msg = CommonConnection.sendMessage(s, h, port, fname, data, br)
             msgQueue.put(QueueHandler.makeMessageExpected(msg, addr))
         return
@@ -148,11 +143,12 @@ class Connection:
     def upload(s, f, fname, bytesRecv, msg, addr, v, q):
         filesize = FileHelper.getFileSize(f)
         if bytesRecv == filesize:
+            Logger.logIfVerbose(v, "Recieved: " + str(bytesRecv) + " from " +
+                                str(addr))
             f.seek(bytesRecv, os.SEEK_SET)
             Logger.logIfVerbose(v, "Writing file " + fname)
             f.write(msg)
             filesize = FileHelper.getFileSize(f)
-            Logger.logIfVerbose(v, "Sending ACK to client: " + str(addr))
             CommonConnection.sendACK(s, addr[0], addr[1], 'T', fname, filesize)
         elif bytesRecv < filesize:
             CommonConnection.sendACK(s, addr[0], addr[1], 'T', fname,

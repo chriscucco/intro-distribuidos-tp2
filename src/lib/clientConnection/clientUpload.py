@@ -37,7 +37,6 @@ class ClientUpload:
                             if msgRcvd[0] == 'A' and msgRcvd[1] == 'E':
                                 endRecv = True
                     break
-                Logger.logIfVerbose(verbose, 'Sending message to server')
                 message = CommonConnection.sendMessage(s, host, port,
                                                        fName, data,
                                                        bytesSent)
@@ -49,8 +48,6 @@ class ClientUpload:
                 recvMsg[msgRcvd+'-'+str(addr[0])+'-'+str(addr[1])] = True
                 if msgRcvd[0] == Constants.errorProtocol():
                     Logger.log("Server cant process the file transfer")
-                    Logger.logIfVerbose(verbose, "Sending ACK to server: " +
-                                        str(host) + ", " + str(port))
                     CommonConnection.sendACK(s, host, port, 'F', fName,
                                              bytesSent)
                     file.close()
@@ -82,8 +79,6 @@ class ClientUpload:
                                                  quiet, lr)
         elif message[0] == Constants.errorProtocol():
             Logger.log("Server cant process upload work")
-            Logger.logIfVerbose(verbose, "Sending ACK to server: " +
-                                str(host) + ", " + str(port))
             CommonConnection.sendACK(sckt, host, port, 'F', fName, 0)
             file.close()
             return
