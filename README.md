@@ -1,6 +1,7 @@
 ## Introducción a los Sistemas Distribuidos (75.43/75.33/95.60) - UPD File Transfer
 
 Esta es una aplicación cliente-servidor que permite subir y descargar archivos desde un cliente a un servdor usando el protocolo UDP y la librería estándar Socket de Python.
+La comunicación funciona a partir del protocolo Stop-And-Wait.
 
 ### Autores
 - Ramiro Santos
