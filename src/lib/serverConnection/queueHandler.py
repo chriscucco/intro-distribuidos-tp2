@@ -19,9 +19,7 @@ class QueueHandler:
             expectedMsg = item['expected']
             messageRecv = recvMsg.get(expectedMsg, False)
 
-            if messageRecv:
-                recvMsg.pop(expectedMsg)
-            else:
+            if not messageRecv:
                 QueueHandler.retry(srvSock, item, msgQueue, v)
             msgQueue.task_done()
         return
