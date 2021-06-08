@@ -24,7 +24,7 @@ Con -p se indica el puerto donde correrá el server y con -H la dirección IP de
 
 Con -v se indica si se quiere información extra en los logs, y con -q si se quiere menos. En caso de poner los dos parámetros se tomará el -v.
 
-Con -s se indica el path donde el servidor almacenará los archivos que reciba y luego mande a los respectivos clientes (no debe comenzar con el caracter '-'). En caso de no indicarse el path por default será root/src. El path se puede indicar tanto con la barra final como no. Por ejemplo, tanto lib como lib/ son válidos.
+Con -s se indica el path donde el servidor almacenará los archivos que reciba y luego mande a los respectivos clientes (no debe comenzar con el caracter '-'). En caso de no indicarse el path por default será root/src/lib. El path se puede indicar tanto con la barra final como no. Por ejemplo, tanto lib como lib/ son válidos.
 
 Con -lr se indica el nivel de pérdida de paquetes. Esta puede variar de 0 a 0.99.
 
