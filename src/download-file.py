@@ -35,8 +35,8 @@ def main():
     clientDownload.download(s, host, port, fName, fDest, msgQ, rMsg, v, q, lr)
     # Se cierra cliente
     msgQ.put('exit')
-    queueThread.join()
     s.close()
+    queueThread.join()
     Logger.log("Client closed")
     endTime = datetime.datetime.now()
     executionTime = (endTime - startTime).total_seconds() * 1000.0

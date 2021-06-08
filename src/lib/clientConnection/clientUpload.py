@@ -29,12 +29,14 @@ class ClientUpload:
                     msg = CommonConnection.sendEndFile(s, host, port,
                                                        fName, bytesSent)
                     msgQueue.put(QueueHandler.makeSimpleExpected(msg, addr))
-
-                    rcvd = CommonConnection.receiveMessageFromServer(s, addr)
-                    recvMsg[rcvd+'-'+str(addr[0])+'-'+str(addr[1])] = True
-
-                    if rcvd[0] == Constants.ackProtocol():
-                        break
+                    while not endRecv:
+                        msgRcvd = CommonConnection.receiveMessageFromServer(s, addr)
+                        r = random.random()
+                        if r >= lr:
+                            recvMsg[msgRcvd+'-'+str(host)+'-'+str(port)] = True
+                            if msgRcvd[0] == 'A' and msgRcvd[1] == 'E':
+                                endRecv = True                    
+                    break
                 Logger.logIfVerbose(verbose, 'Sending message to server')
                 message = CommonConnection.sendMessage(s, host, port,
                                                        fName, data,
@@ -57,14 +59,6 @@ class ClientUpload:
                 if msgRcvd[0] == Constants.ackProtocol():
                     splittedMsg = msgRcvd.split(';')
                     bytesSent = int(splittedMsg[1])
-        while not endRecv:
-            msgRcvd = CommonConnection.receiveMessageFromServer(s, addr)
-            r = random.random()
-            if r >= lr:
-                recvMsg[msgRcvd+'-'+str(host)+'-'+str(port)] = True
-                if msgRcvd[0] == 'A' and msgRcvd[1] == 'E':
-                    endRecv = True
-
         return True
 
     def upload(self, sckt, host, port, file, fName, msgQueue, recvMsg,

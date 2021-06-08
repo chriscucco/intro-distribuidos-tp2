@@ -44,8 +44,8 @@ def main():
 
     # Se cierra cliente
     msgQueue.put('exit')
-    queueThread.join()
     sckt.close()
+    queueThread.join()
     Logger.logIfNotQuiet(q, "Client closed")
     endTime = datetime.datetime.now()
     executionTime = (endTime - startTime).total_seconds() * 1000.0
