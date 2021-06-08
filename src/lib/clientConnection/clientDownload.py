@@ -37,12 +37,19 @@ class ClientDownload:
                     bRecv = int(processedData[0:separatorPossition])
                     Logger.logIfVerbose(v, "Recieved " + str(bRecv) +
                                         " bytes from server: " + str(addr))
-                    file.seek(bRecv, os.SEEK_SET)
-                    file.write(msg)
                     size = FileHelper.getFileSize(file)
-                    Logger.logIfVerbose(v, "Sending ACK-T to server: "
-                                        + str(addr))
-                    CommonConnection.sendACK(s, host, port, 'T', fname, size)
+                    if bRecv == size:
+                        file.seek(bRecv, os.SEEK_SET)
+                        file.write(msg)
+                        size = FileHelper.getFileSize(file)
+                        Logger.logIfVerbose(v, "Sending ACK-T to server: "
+                                            + str(addr))
+                        CommonConnection.sendACK(s, host, port, 'T',
+                                                 fname, size)
+                    elif bRecv < size:
+                        CommonConnection.sendACK(s, host, port, 'T', fname,
+                                                 bRecv +
+                                                 Constants.getMaxReadSize())
                 elif mode.decode() == Constants.endProtocol():
                     Logger.logIfVerbose(v, "Sending ACK-E to server: "
                                         + str(addr))

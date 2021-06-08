@@ -146,10 +146,15 @@ class Connection:
         return
 
     def upload(s, f, fname, bytesRecv, msg, addr, v, q):
-        f.seek(bytesRecv, os.SEEK_SET)
-        Logger.logIfVerbose(v, "Writing file " + fname)
-        f.write(msg)
         filesize = FileHelper.getFileSize(f)
-        Logger.logIfVerbose(v, "Sending ACK to client: " + str(addr))
-        CommonConnection.sendACK(s, addr[0], addr[1], 'T', fname, filesize)
+        if bytesRecv == filesize:
+            f.seek(bytesRecv, os.SEEK_SET)
+            Logger.logIfVerbose(v, "Writing file " + fname)
+            f.write(msg)
+            filesize = FileHelper.getFileSize(f)
+            Logger.logIfVerbose(v, "Sending ACK to client: " + str(addr))
+            CommonConnection.sendACK(s, addr[0], addr[1], 'T', fname, filesize)
+        elif bytesRecv < filesize:
+            CommonConnection.sendACK(s, addr[0], addr[1], 'T', fname,
+                                     bytesRecv + Constants.getMaxReadSize())
         return
