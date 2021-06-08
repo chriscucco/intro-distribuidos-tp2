@@ -36,7 +36,7 @@ class QueueHandler:
         d['ttl'] = ttl
         d['msg'] = currentMsg
         d['addr'] = addr
-        d['retrySize'] = 5
+        d['retrySize'] = 20
         return d
 
     def makeMessageExpected(currentMsg, addr):
@@ -58,7 +58,7 @@ class QueueHandler:
         d['ttl'] = ttl
         d['msg'] = currentMsg
         d['addr'] = addr
-        d['retrySize'] = 5
+        d['retrySize'] = 10
         return d
 
     def retry(srvSock, item, msgQueue, v):
@@ -69,10 +69,7 @@ class QueueHandler:
         item['ttl'] = datetime.datetime.now() + datetime.timedelta(
             seconds=Constants.ttl())
         mode = message[0:1].decode()
-        if mode == 'T' or mode == 'D' or mode == 'U':
+        if item['retrySize'] > 0:
             msgQueue.put(item)
-        if mode == 'E' or mode == 'F':
-            if item['retrySize'] > 0:
-                msgQueue.put(item)
-                item['retrySize'] -= 1
+            item['retrySize'] -= 1
         return
