@@ -30,12 +30,12 @@ class ClientUpload:
                                                        fName, bytesSent)
                     msgQueue.put(QueueHandler.makeSimpleExpected(msg, addr))
                     while not endRecv:
-                        msgRcvd = CommonConnection.receiveMessageFromServer(s, addr)
+                        msgRcvd = CommonConnection.recvMsgFromServer(s, addr)
                         r = random.random()
                         if r >= lr:
                             recvMsg[msgRcvd+'-'+str(host)+'-'+str(port)] = True
                             if msgRcvd[0] == 'A' and msgRcvd[1] == 'E':
-                                endRecv = True                    
+                                endRecv = True
                     break
                 Logger.logIfVerbose(verbose, 'Sending message to server')
                 message = CommonConnection.sendMessage(s, host, port,
@@ -43,7 +43,7 @@ class ClientUpload:
                                                        bytesSent)
                 msgQueue.put(QueueHandler.makeMessageExpected(message, addr))
 
-            msgRcvd = CommonConnection.receiveMessageFromServer(s, addr)
+            msgRcvd = CommonConnection.recvMsgFromServer(s, addr)
             r = random.random()
             if r >= lr:
                 recvMsg[msgRcvd+'-'+str(addr[0])+'-'+str(addr[1])] = True
@@ -71,7 +71,7 @@ class ClientUpload:
         sckt.sendto(message.encode(), addr)
         msgQueue.put(QueueHandler.makeSimpleExpected(message.encode(), addr))
 
-        message = CommonConnection.receiveMessageFromServer(sckt, addr)
+        message = CommonConnection.recvMsgFromServer(sckt, addr)
         recvMsg[message+'-'+str(addr[0])+'-'+str(addr[1])] = True
 
         transferOk = False

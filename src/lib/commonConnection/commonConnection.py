@@ -47,7 +47,7 @@ class CommonConnection:
             return
         return data
 
-    def receiveMessageFromServer(socket, addr):
+    def recvMsgFromServer(socket, addr):
         data, addr = socket.recvfrom(Constants.bytesChunk())
         message = data.decode()
         return message
