@@ -44,6 +44,7 @@ def main():
 
     # Se cierra cliente
     msgQueue.put('exit')
+    queueThread.join()
     sckt.close()
     queueThread.join()
     Logger.logIfNotQuiet(q, "Client closed")
