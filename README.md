@@ -64,3 +64,5 @@ Nuevamente, si no se ingresa la dirección IP o el puerto al cual conectarse, po
 De no indicarse el path para almacenar el archivo, por defecto será root/src/test.txt. Y de no indicarse el nombre del archivo que se desea obtener del servidor se seteará por default test.txt (tener en cuenta que si no hay un archivo con ese nombre en el servidor no se recibirá nada).
 
 Una vez que el archivo es descargado, el cliente finaliza.
+
+*Todos los nombres de archivos indicados en los comandos -n, -d y -s deben escribirse con su extensión. Queda en manos del usuario poner nombres de archivos y filepaths con mismas extensiones.
