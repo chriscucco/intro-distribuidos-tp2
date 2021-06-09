@@ -89,6 +89,7 @@ class Connection:
             data = file.read(Constants.getMaxReadSize())
             h = addr[0]
             p = addr[1]
+            Logger.logIfVerbose(v, filename + " begins to be sent to the client " + str(addr))
             msg = CommonConnection.sendMessage(s, h, p, filename, data, 0)
             msgQueue.put(QueueHandler.makeMessageExpected(msg, addr))
         except Exception:
@@ -113,6 +114,7 @@ class Connection:
         try:
             files[filename].close()
             CommonConnection.sendACK(s, addr[0], addr[1], 'E', filename, 0)
+            Logger.log("File " + filename + " was successfully stored")
         except Exception:
             Logger.log("Error processing end file")
             return
@@ -122,7 +124,12 @@ class Connection:
         data = msg.decode()
         md = data[0]
         processedData = data[1:]
-        if md == Constants.endProtocol() or md == Constants.errorProtocol():
+        if md == Constants.endProtocol():
+            separatorPossition = processedData.find(';')
+            fname = processedData[0:separatorPossition]
+            Logger.log("File " + fname + " was successfully sent")
+            return
+        elif md == Constants.errorProtocol():
             return
         elif md == Constants.fileTransferProtocol():
             separatorPossition = processedData.find(';')
@@ -142,6 +149,7 @@ class Connection:
         else:
             h = addr[0]
             port = addr[1]
+            Logger.logIfVerbose(v, "Sending " + str(br) + " bytes to client: " + str(addr))
             msg = CommonConnection.sendMessage(s, h, port, fname, data, br)
             msgQueue.put(QueueHandler.makeMessageExpected(msg, addr))
         return
