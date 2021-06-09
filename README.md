@@ -43,7 +43,7 @@ Ejemplo:
 Con -p se indica el puerto y con -H la dirección IP del host a donde quiere enviar mensajes el cliente. En caso de no ingresarse estos parámetros el cliente
 intentará conectarse a la dirección 127.0.0.1 (Localhost) y al puerto 8090.
 
-Con -n se indica el nombre del archivo (debe escribirse junto con su extensión y no debe comenzar con '-') que tendrá dentro del servidor.
+Con -n se indica el nombre del archivo (debe escribirse junto con su extensión y no debe comenzar con '-') que tendrá dentro del servidor. En caso de no indicarse el nombre, el archivo se almacenará en el server por defecto con el nombre test.txt.
 
 Con -s se indica el path donde el cliente accederá para encontrar el archivo y enviarlo (no debe comenzar con el caracter '-'). En caso de no indicarse el path por default será root/src/test.txt (tener en cuenta que si no existe ningún archivo con este nombre el programa explotará). El path se puede indicar tanto con la barra final como no.
 
@@ -60,7 +60,7 @@ Ejemplo:
 ` python3 download-file.py -H 127.0.0.1 -p 8090 -v -n Test.txt -d lib/testimage.png -lr 0.2 `
 
 Al igual que con el cliente upload los parámetros funcionan de la misma manera, salvo que con -n se está indicando el nombre del archivo que se encuentra en el servidor y se desea recibir, y con -d el path de destino (con nombre de archivo) donde se almacenará.
-Nuevamente, si no se ingresa la dirección IP o el puerto al cual conectarse, por defecto se tomarán los valores 127.0.0.1 (Localhost) y 8090 respectivamente. Y
-de no indicarse el path para almacenar el archivo, por defecto será root/src/test.txt.
+Nuevamente, si no se ingresa la dirección IP o el puerto al cual conectarse, por defecto se tomarán los valores 127.0.0.1 (Localhost) y 8090 respectivamente.
+De no indicarse el path para almacenar el archivo, por defecto será root/src/test.txt. Y de no indicarse el nombre del archivo que se desea obtener del servidor se seteará por default test.txt (tener en cuenta que si no hay un archivo con ese nombre en el servidor no se recibirá nada).
 
 Una vez que el archivo es descargado, el cliente finaliza.
