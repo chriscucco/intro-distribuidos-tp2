@@ -10,6 +10,7 @@ ACK = "A"
 END = "E"
 ERROR = "F"
 NO_VALUE_COMMANDS = ['-h', '--help', '-v', '--verbose', '-q', '--quiet']
+MAX_RETRIES_AMOUNT = 9
 
 
 class Constants:
@@ -46,3 +47,6 @@ class Constants:
 
     def noValueCommands():
         return NO_VALUE_COMMANDS
+
+    def maxRetriesAmount():
+        return MAX_RETRIES_AMOUNT

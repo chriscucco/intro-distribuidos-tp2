@@ -34,7 +34,7 @@ class QueueHandler:
         d['ttl'] = ttl
         d['msg'] = currentMsg
         d['addr'] = addr
-        d['retrySize'] = 10
+        d['retrySize'] = Constants.maxRetriesAmount()
         return d
 
     def makeMessageExpected(currentMsg, addr):
@@ -56,7 +56,7 @@ class QueueHandler:
         d['ttl'] = ttl
         d['msg'] = currentMsg
         d['addr'] = addr
-        d['retrySize'] = 10
+        d['retrySize'] = Constants.maxRetriesAmount()
         return d
 
     def retry(srvSock, item, msgQueue, v):

@@ -23,10 +23,10 @@ def main():
         return printHelp()
 
     try:
-        Logger.logIfVerbose(v, 'Opening file: ' + fName)
-        file = open(fSource + fName, "rb")
+        Logger.logIfVerbose(v, 'Opening file: ' + fSource)
+        file = open(fSource, "rb")
     except OSError:
-        Logger.log("Error opening file " + fSource + fName)
+        Logger.log("Error opening file " + fSource)
         return
 
     sckt = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)

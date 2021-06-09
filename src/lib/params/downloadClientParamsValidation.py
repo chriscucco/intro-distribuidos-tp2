@@ -42,7 +42,5 @@ class DownloadClientParams(Params):
         if fName == '':
             fName = 'test.txt'
         if fDest == '':
-            fDest = './'
-        if fDest[-1] != '/':
-            fDest += '/'
+            fDest = './test.txt'
         return fName, fDest

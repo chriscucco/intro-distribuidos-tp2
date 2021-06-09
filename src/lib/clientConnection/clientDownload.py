@@ -50,7 +50,7 @@ class ClientDownload:
                                                  Constants.getMaxReadSize())
                 elif mode.decode() == Constants.endProtocol():
                     CommonConnection.sendACK(s, host, port, 'E', fname, 0)
-                    Logger.log("File downloaded successfully in: "+dest+fname)
+                    Logger.log("File downloaded successfully in: " + dest)
                     file.close()
                     return
             data, addr = s.recvfrom(Constants.bytesChunk())
@@ -66,10 +66,10 @@ class ClientDownload:
             return None
         elif mode == Constants.fileTransferProtocol():
             try:
-                file = open(fDest + fName, "wb")
+                file = open(fDest, "wb")
                 Logger.logIfVerbose(verb, "File created on client")
                 return file
             except OSError:
                 Logger.log("Client could not create the file on: "
-                           + fDest + fName)
+                           + fDest)
                 return None
