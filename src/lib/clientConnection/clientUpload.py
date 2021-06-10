@@ -37,7 +37,8 @@ class ClientUpload:
                             if msgRcvd[0] == 'A' and msgRcvd[1] == 'E':
                                 endRecv = True
                     break
-                Logger.logIfVerbose(verbose, "Sending " + str(bytesSent) + " bytes to server: "
+                Logger.logIfVerbose(verbose, "Sending " + str(bytesSent)
+                                    + " bytes to server: "
                                     + str(host) + ", " + str(port))
                 message = CommonConnection.sendMessage(s, host, port,
                                                        fName, data,

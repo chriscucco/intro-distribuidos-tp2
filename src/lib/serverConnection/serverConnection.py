@@ -89,7 +89,9 @@ class Connection:
             data = file.read(Constants.getMaxReadSize())
             h = addr[0]
             p = addr[1]
-            Logger.logIfVerbose(v, filename + " begins to be sent to the client " + str(addr))
+            Logger.logIfVerbose(v, filename
+                                + " begins to be sent to the client " +
+                                str(addr))
             msg = CommonConnection.sendMessage(s, h, p, filename, data, 0)
             msgQueue.put(QueueHandler.makeMessageExpected(msg, addr))
         except Exception:
@@ -149,7 +151,8 @@ class Connection:
         else:
             h = addr[0]
             port = addr[1]
-            Logger.logIfVerbose(v, "Sending " + str(br) + " bytes to client: " + str(addr))
+            Logger.logIfVerbose(v, "Sending " + str(br)
+                                + " bytes to client: " + str(addr))
             msg = CommonConnection.sendMessage(s, h, port, fname, data, br)
             msgQueue.put(QueueHandler.makeMessageExpected(msg, addr))
         return
